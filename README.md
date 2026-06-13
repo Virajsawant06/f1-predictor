@@ -44,6 +44,7 @@ This project represents a complete, structured journey from writing the first li
 
 ### Phase 3: The F1 Predictor (Stacked Pipelines & Software Engineering)
 *   **Transition to Production Code**: Moved from experimental Jupyter notebooks to a structured, modular Python repository using virtual environments (`requirements.txt`), `src/` modules, and run scripts.
+*   **The "Blind Merge" Mistake & Selective Loading**: Made a critical data engineering mistake initially by merging full raw tables blindly. This resulted in duplicate columns (e.g., `url`), naming clashes (creating `_x`/`_y` suffixes on keys like `constructorId`), and data shape inflation. This reinforced the industry-standard rule: **always subset and rename columns in sub-dataframes before merging**. This resulted in the modular design of [data_loading.py](file:///c:/Users/Admin/f1-predictor/src/data_loading.py).
 *   **Telemetry vs. Probability**: Realized that without private team telemetry (gearbox wear, temperature), a model cannot predict specific mechanical failures with 100% precision. The model acts as a "risk index" based on historical patterns (circuit collision rates, team reliability history).
 *   **Advanced Stacking**: Built a multi-stage stacked model where the DNF classifier's output probability directly adjusts the finishing position regressor's predictions.
 *   **Preventing Time-Series Leakage**: Replaced random train-test splitting with strict chronological splitting (training on pre-2022 data, testing on 2022+ hybrid era data).
